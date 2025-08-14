@@ -59,9 +59,19 @@ class TinkerCommand extends Command
 
         $shell = new Shell($config);
         $shell->addCommands($this->getCommands());
-        $shell->setIncludes($this->argument('include'));
 
-        $path = Env::get('COMPOSER_VENDOR_DIR', $this->getLaravel()->basePath().DIRECTORY_SEPARATOR.'vendor');
+        // Get the includes from command arguments
+        $includes = $this->argument('include');
+
+        // Check for local tinker file and add it to includes if it exists
+        $localTinkerFile = $this->getLaravel()->basePath() . '/.tinker.local.php';
+        if (file_exists($localTinkerFile)) {
+            $includes[] = $localTinkerFile;
+        }
+
+        $shell->setIncludes($includes);
+
+        $path = Env::get('COMPOSER_VENDOR_DIR', $this->getLaravel()->basePath() . DIRECTORY_SEPARATOR . 'vendor');
 
         $path .= '/composer/autoload_classmap.php';
 

@@ -1,7 +1,13 @@
 {
     "name": "laravel/tinker",
+    "version": "3.1.0",
     "description": "Powerful REPL for the Laravel framework.",
-    "keywords": ["tinker", "repl", "psysh", "laravel"],
+    "keywords": [
+        "tinker",
+        "repl",
+        "psysh",
+        "laravel"
+    ],
     "license": "MIT",
     "authors": [
         {
@@ -39,7 +45,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "3.x-dev"
+            "dev-master": "3.1-dev"
         },
         "laravel": {
             "providers": [
