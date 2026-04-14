@@ -20,7 +20,14 @@ class TinkerCommand extends Command
      * @var array
      */
     protected $commandWhitelist = [
-        'clear-compiled', 'down', 'env', 'inspire', 'migrate', 'migrate:install', 'optimize', 'up',
+        'clear-compiled',
+        'down',
+        'env',
+        'inspire',
+        'migrate',
+        'migrate:install',
+        'optimize',
+        'up',
     ];
 
     /**
@@ -49,6 +56,9 @@ class TinkerCommand extends Command
         $config = Configuration::fromInput($this->input);
         $config->setUpdateCheck(Checker::NEVER);
 
+        $appConfig = $this->getLaravel()->make('config');
+        $config->setTrustProject($appConfig->get('tinker.trust_project'));
+
         $config->getPresenter()->addCasters(
             $this->getCasters()
         );
@@ -75,13 +85,11 @@ class TinkerCommand extends Command
 
         $path .= '/composer/autoload_classmap.php';
 
-        $config = $this->getLaravel()->make('config');
-
         $loader = ClassAliasAutoloader::register(
             $shell,
             $path,
-            $config->get('tinker.alias', []),
-            $config->get('tinker.dont_alias', []),
+            $appConfig->get('tinker.alias', []),
+            $appConfig->get('tinker.dont_alias', []),
             $config->get('tinker.class_alias', [])
         );
 
