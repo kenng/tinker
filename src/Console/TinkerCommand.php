@@ -88,9 +88,24 @@ class TinkerCommand extends Command
         $loader = ClassAliasAutoloader::register(
             $shell,
             $path,
+<<<<<<< HEAD
             $appConfig->get('tinker.alias', []),
             $appConfig->get('tinker.dont_alias', []),
             $config->get('tinker.class_alias', [])
+||||||| merged common ancestors
+            $config->get('tinker.alias', []),
+            $config->get('tinker.dont_alias', []),
+            $config->get('tinker.class_alias', [])
+||||||||| 942b69c
+            $shell, $path, $config->get('tinker.alias', []), $config->get('tinker.dont_alias', [])
+=========
+            $shell, $path, $appConfig->get('tinker.alias', []), $appConfig->get('tinker.dont_alias', [])
+>>>>>>>>> Temporary merge branch 2
+=======
+            $appConfig->get('tinker.alias', []),
+            $appConfig->get('tinker.dont_alias', []),
+            $appConfig->get('tinker.class_alias', [])
+>>>>>>> master
         );
 
         if ($code = $this->option('execute')) {
