@@ -49,6 +49,9 @@ class TinkerCommand extends Command
         $config = Configuration::fromInput($this->input);
         $config->setUpdateCheck(Checker::NEVER);
 
+        $appConfig = $this->getLaravel()->make('config');
+        $config->setTrustProject($appConfig->get('tinker.trust_project'));
+
         $config->getPresenter()->addCasters(
             $this->getCasters()
         );
@@ -75,14 +78,12 @@ class TinkerCommand extends Command
 
         $path .= '/composer/autoload_classmap.php';
 
-        $config = $this->getLaravel()->make('config');
-
         $loader = ClassAliasAutoloader::register(
             $shell,
             $path,
-            $config->get('tinker.alias', []),
-            $config->get('tinker.dont_alias', []),
-            $config->get('tinker.class_alias', [])
+            $appConfig->get('tinker.alias', []),
+            $appConfig->get('tinker.dont_alias', []),
+            $appConfig->get('tinker.class_alias', [])
         );
 
         if ($code = $this->option('execute')) {

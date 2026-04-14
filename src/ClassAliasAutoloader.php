@@ -149,9 +149,9 @@ class ClassAliasAutoloader
             return false;
         }
 
-        if (! $this->includedAliases->filter(function ($alias) use ($class) {
+        if ($this->includedAliases->contains(function ($alias) use ($class) {
             return Str::startsWith($class, $alias);
-        })->isEmpty()) {
+        })) {
             return true;
         }
 
@@ -159,9 +159,9 @@ class ClassAliasAutoloader
             return false;
         }
 
-        if (! $this->excludedAliases->filter(function ($alias) use ($class) {
+        if ($this->excludedAliases->contains(function ($alias) use ($class) {
             return Str::startsWith($class, $alias);
-        })->isEmpty()) {
+        })) {
             return false;
         }
 
